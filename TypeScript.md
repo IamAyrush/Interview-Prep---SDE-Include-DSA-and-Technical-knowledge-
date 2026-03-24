@@ -1242,6 +1242,281 @@ You should:
 
 ---
 
+Perfect — now we enter one of the **MOST IMPORTANT topics in TypeScript**.
+
+If you master this → you’ll start thinking like a **senior dev**.
+
+---
+
+# 🚀 DAY 6 — Union (`|`) & Intersection (`&`) Types
+
+---
+
+# 🧠 1. Union Types (`|`) — “OR”
+
+👉 Means:
+
+> Value can be **one of multiple types**
+
+---
+
+## ✅ Example:
+
+```ts
+let id: string | number;
+
+id = 101;      // ✅
+id = "A101";   // ✅
+id = true;     // ❌
+```
+
+---
+
+## 🧠 Real-Life Thinking
+
+👉 Like saying:
+
+> “ID can be number OR string”
+
+---
+
+# 🧠 2. Problem with Union (IMPORTANT)
+
+```ts
+function printId(id: string | number) {
+  console.log(id.toUpperCase()); // ❌ Error
+}
+```
+
+👉 Why error?
+
+Because:
+
+* number doesn’t have `toUpperCase()`
+
+---
+
+# 🔥 Solution → Narrowing (Preview of Day 7)
+
+```ts
+function printId(id: string | number) {
+  if (typeof id === "string") {
+    console.log(id.toUpperCase()); // ✅
+  }
+}
+```
+
+---
+
+# 🧠 3. Union with Objects (VERY IMPORTANT)
+
+```ts
+type User = {
+  name: string;
+};
+
+type Admin = {
+  role: string;
+};
+
+let person: User | Admin;
+```
+
+---
+
+## ⚠️ Problem:
+
+```ts
+person.name; // ❌ Not safe
+```
+
+👉 Because TS doesn’t know which type it is
+
+---
+
+# 🧠 4. Discriminated Union (🔥 ADVANCED + INTERVIEW FAVORITE)
+
+```ts
+type User = {
+  type: "user";
+  name: string;
+};
+
+type Admin = {
+  type: "admin";
+  role: string;
+};
+
+function handle(person: User | Admin) {
+  if (person.type === "user") {
+    console.log(person.name);
+  } else {
+    console.log(person.role);
+  }
+}
+```
+
+👉 This is used in:
+
+* APIs
+* Redux
+* complex apps
+
+---
+
+# 🧠 5. Intersection Types (`&`) — “AND”
+
+👉 Means:
+
+> Combine multiple types into one
+
+---
+
+## ✅ Example:
+
+```ts
+type User = {
+  name: string;
+};
+
+type Admin = {
+  role: string;
+};
+
+type AdminUser = User & Admin;
+```
+
+---
+
+## Use:
+
+```ts
+let person: AdminUser = {
+  name: "Ayush",
+  role: "admin"
+};
+```
+
+---
+
+## 🧠 Real Thinking
+
+👉 “This object must have ALL properties”
+
+---
+
+# ⚠️ 6. Conflict Case
+
+```ts
+type A = { name: string };
+type B = { name: number };
+
+type C = A & B; // ❌ impossible
+```
+
+👉 TS will break because:
+
+* name cannot be both string AND number
+
+---
+
+# 🧠 7. Union vs Intersection (CRYSTAL CLEAR)
+
+| Feature | Union (`|`) | Intersection (`&`) |
+|--------|------------|-------------------|
+| Meaning | OR | AND |
+| Data | one type | combined type |
+| Use case | flexible input | strict combined object |
+
+---
+
+# 🧪 8. Practice (DO THIS)
+
+### Task 1:
+
+```ts
+let value: string | number;
+```
+
+---
+
+### Task 2:
+
+```ts
+type A = { name: string };
+type B = { age: number };
+
+type C = A & B;
+```
+
+---
+
+### Task 3 (IMPORTANT):
+
+Create:
+
+* `Student`
+* `Teacher`
+
+Then:
+
+* union → person can be either
+* intersection → person is both
+
+---
+
+# 💥 Real World Connection (FOR YOU)
+
+👉 React:
+
+```ts
+type ButtonProps = {
+  variant: "primary" | "secondary";
+};
+```
+
+---
+
+👉 API:
+
+```ts
+type Response = "success" | "error";
+```
+
+---
+
+👉 Backend:
+
+```ts
+type UserWithToken = User & {
+  token: string;
+};
+```
+
+---
+
+# 🧠 Final Mental Model
+
+👉 Always ask:
+
+* “Is it ONE of many?” → `|`
+* “Does it NEED ALL?” → `&`
+
+---
+
+# 🎯 End Goal of Day 6
+
+You should:
+
+* Understand union deeply
+* Understand intersection deeply
+* Handle object unions
+* Know real-world usage
+
+---
+
+
+
 
 
 
